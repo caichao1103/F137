@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=centos:centos7.8.2003
+ARG BASE_IMAGE=centos:7.8.2003
 FROM $BASE_IMAGE
 ARG BASE_IMAGE
 RUN case "${BASE_IMAGE%:*}" in \

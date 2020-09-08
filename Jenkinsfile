@@ -1,5 +1,10 @@
 #!/usr/bin/env groovy
 
+def getOSFamily(){
+    def osFamily = params.OS.split(':') 
+    return osFamily[0]
+}
+
 pipeline {
     agent {
         label 'os:linux'
@@ -14,7 +19,7 @@ pipeline {
         ansiColor('xterm')
     }
     parameters {
-        choice choices: ['ubuntu:18.04', 'centos:centos7.8.2003'], description: '', name: 'OS'
+        choice choices: ['ubuntu:18.04', 'centos:7.8.2003'], description: '', name: 'OS'
     }    
     stages {
         stage('Checkout') {
@@ -26,7 +31,12 @@ pipeline {
         }
         stage('build') {
             steps {
-               sh "docker build --build-arg BASE_IMAGE=${params.OS} -t gcc-v:${env.BUILD_NUMBER} . && docker images"
+                script {
+                    def osFamily = getOSFamily 
+                    def dockFile = "${osFamily}.Dockerfile"
+                    def tag = "b${env.BUILD_NUMBER}-${params.OS}"
+                    dockerBuild project: 'library', repo: 'cpp', tags: [tag], push: false
+                }
             }           
         }        
     }
