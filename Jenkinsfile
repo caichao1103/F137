@@ -26,7 +26,7 @@ pipeline {
         }
         stage('build') {
             steps {
-               sh "docker build --build-arg BASE_IMAGE=${params.BASE_IMAGE} -t gcc:v1. && docker images"
+               sh "docker build --build-arg BASE_IMAGE=${params.OS} -t gcc:v1. && docker images"
             }           
         }        
     }
