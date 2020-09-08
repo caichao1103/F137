@@ -29,13 +29,5 @@ pipeline {
                sh "docker build --build-arg BASE_IMAGE=${params.BASE_IMAGE} -t gcc:v1. && docker images"
             }           
         }        
-        stage('Upload Image') {
-            steps {
-                script {
-                    // def tag = dockerTagName()
-                    // dockerBuild project: 'library', repo: 'dynamodb-mysql', tags: [tag], push: true
-                }
-            }
-        }
     }
 }
