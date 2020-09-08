@@ -33,9 +33,9 @@ pipeline {
             steps {
                 script {
                     def osFamily = getOSFamily() 
-                    def dockFile = "${osFamily}.Dockerfile"
+                    def dockerFile = "${osFamily}.Dockerfile"
                     def tag = "b${env.BUILD_NUMBER}-${params.OS}"
-                    dockerBuild project: 'library', repo: 'cpp', tags: [tag], buildarg: "BASE_IMAGE=ubuntu:18.04", dockerfile: dockerfile, push: false
+                    dockerBuild project: 'library', repo: 'cpp', tags: [tag], buildarg: "BASE_IMAGE=ubuntu:18.04", dockerfile: dockerFile, push: false
                 }
             }           
         }        
